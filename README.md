@@ -14,7 +14,7 @@
 
 ## 🚀 Демо
 
-[Посмотреть демо](https://krovlads.github.io/coursor-ai-test/)
+[Посмотреть демо](https://KroVladS.github.io/coursor-ai-test/)
 
 ![Скриншот калькулятора](путь_к_скриншоту)
 
@@ -29,7 +29,7 @@
 ## 📦 Установка
 
 1. Клонируйте репозиторий: bash
-git clone https://github.com/ваш-юзернейм/bootstrap-calculator.git
+git clone https://github.com/KroVladS/coursor-ai-test.git
 
 
 2. Откройте `index.html` в вашем браузере
@@ -69,7 +69,7 @@ git clone https://github.com/ваш-юзернейм/bootstrap-calculator.git
 ## 👤 Автор
 
 Ваше имя
-- GitHub: [@ваш-юзернейм](https://github.com/ваш-юзернейм)
+- GitHub: [@KroVladS](https://github.com/KroVladS)
 
 ## 🤝 Вклад в проект
 
@@ -84,15 +84,6 @@ git clone https://github.com/ваш-юзернейм/bootstrap-calculator.git
 ## 🌟 Поддержка
 
 Поставьте звезду ⭐️ если вам понравился проект!
-
-## 📄 Структура проекта
-bootstrap-calculator/
-├── index.html
-├── styles.css
-├── script.js
-├── README.md
-└── LICENSE
-
 
 ## 🔄 Обновления
 
