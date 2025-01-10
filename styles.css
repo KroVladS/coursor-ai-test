@@ -1,0 +1,75 @@
+.calculator {
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+#display {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    text-align: right;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+button {
+    padding: 15px;
+    font-size: 18px;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-weight: 600;
+}
+
+/* Стили для цифровых кнопок */
+button:nth-child(n+2):nth-child(-n+13):not(:nth-child(5)):not(:nth-child(9)) {
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* Стили для операторов */
+button:nth-child(5),
+button:nth-child(9),
+button:nth-child(13),
+button:nth-child(17) {
+    background-color: #ff9500;
+    color: white;
+}
+
+/* Стиль для кнопки очистки */
+button:first-child {
+    background-color: #ff3b30;
+    color: white;
+}
+
+/* Стиль для кнопки равно */
+button:nth-child(16) {
+    background-color: #007aff;
+    color: white;
+}
+
+/* Эффекты при наведении */
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Эффект при нажатии */
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+} 
