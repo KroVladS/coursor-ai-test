@@ -1,37 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="light">
 
 <head>
     <title>Калькулятор</title>
     <!-- Подключаем Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="bg-light">
-    <div class="calculator">
+    <div class="calculator shadow bg-white rounded p-3">
+        <div class="controls mb-2 d-flex justify-content-between align-items-center">
+            <!-- Кнопка очистки истории -->
+            <button class="btn btn-link nav-link py-2 px-0 px-lg-2 text-danger" id="clear-history">
+                <i class="bi bi-trash3"></i>
+            </button>
+
+            <!-- Переключатель темы -->
+            <div class="dropdown">
+                <button class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle d-flex align-items-center"
+                    type="button" id="bd-theme" aria-expanded="false" data-bs-toggle="dropdown"
+                    aria-label="Toggle theme (light)">
+                    <i class="bi bi-sun-fill theme-icon-active"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center"
+                            data-bs-theme-value="light">
+                            <i class="bi bi-sun-fill me-2 opacity-50"></i>
+                            Светлая
+                            <i class="bi bi-check2 ms-auto d-none"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center"
+                            data-bs-theme-value="dark">
+                            <i class="bi bi-moon-stars-fill me-2 opacity-50"></i>
+                            Темная
+                            <i class="bi bi-check2 ms-auto d-none"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="dropdown-item d-flex align-items-center active"
+                            data-bs-theme-value="auto">
+                            <i class="bi bi-circle-half me-2 opacity-50"></i>
+                            Авто
+                            <i class="bi bi-check2 ms-auto d-none"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <div class="display-container">
             <div id="history" class="history-list"></div>
-            <input type="text" id="display" class="form-control mb-3" readonly>
+            <input type="text" id="display" class="form-control form-control-lg border-0 text-end" readonly>
         </div>
         <div class="buttons">
             <button class="btn btn-danger btn-clear">C</button>
-            <button class="btn btn-light btn-number">7</button>
-            <button class="btn btn-light btn-number">8</button>
-            <button class="btn btn-light btn-number">9</button>
-            <button class="btn btn-secondary btn-operator">+</button>
-            <button class="btn btn-light btn-number">4</button>
-            <button class="btn btn-light btn-number">5</button>
-            <button class="btn btn-light btn-number">6</button>
-            <button class="btn btn-secondary btn-operator">-</button>
-            <button class="btn btn-light btn-number">1</button>
-            <button class="btn btn-light btn-number">2</button>
-            <button class="btn btn-light btn-number">3</button>
-            <button class="btn btn-secondary btn-operator">×</button>
-            <button class="btn btn-light btn-number">0</button>
-            <button class="btn btn-light btn-number">.</button>
-            <button class="btn btn-success btn-equals">=</button>
-            <button class="btn btn-secondary btn-operator">÷</button>
+            <button class="btn btn-light btn-number shadow-sm">7</button>
+            <button class="btn btn-light btn-number shadow-sm">8</button>
+            <button class="btn btn-light btn-number shadow-sm">9</button>
+            <button class="btn btn-secondary btn-operator shadow-sm">+</button>
+            <button class="btn btn-light btn-number shadow-sm">4</button>
+            <button class="btn btn-light btn-number shadow-sm">5</button>
+            <button class="btn btn-light btn-number shadow-sm">6</button>
+            <button class="btn btn-secondary btn-operator shadow-sm">-</button>
+            <button class="btn btn-light btn-number shadow-sm">1</button>
+            <button class="btn btn-light btn-number shadow-sm">2</button>
+            <button class="btn btn-light btn-number shadow-sm">3</button>
+            <button class="btn btn-secondary btn-operator shadow-sm">×</button>
+            <button class="btn btn-light btn-number shadow-sm">0</button>
+            <button class="btn btn-light btn-number shadow-sm">.</button>
+            <button class="btn btn-success btn-equals shadow-sm">=</button>
+            <button class="btn btn-secondary btn-operator shadow-sm">÷</button>
         </div>
     </div>
 
