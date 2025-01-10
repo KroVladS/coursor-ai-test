@@ -59,12 +59,12 @@
 }
 
 /* Кнопка очистки истории */
-#clear-history {
+#btn-clear {
     opacity: 0.7;
     transition: opacity 0.2s ease;
 }
 
-#clear-history:hover {
+#btn-clear:hover {
     opacity: 1;
 }
 
@@ -75,95 +75,18 @@
     gap: 10px;
 }
 
-/* Стили для кнопок */
-.btn {
-    position: relative;
-    overflow: hidden;
-}
-
-/* Стили для анимации */
-.ripple {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    pointer-events: none;
-    animation: rippleEffect 0.6s linear;
-}
-
-@keyframes rippleEffect {
-    0% {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 0.5;
-    }
-
-    100% {
-        transform: translate(-50%, -50%) scale(2);
-        opacity: 0;
-    }
-}
-
-/* Стили для переключателя темы */
-.theme-icon-active {
-    color: var(--bs-body-color);
-}
-
-.dropdown-item {
-    cursor: pointer;
-}
-
-.dropdown-item .bi-check2 {
-    display: none;
-}
-
-.dropdown-item.active .bi-check2 {
-    display: inline-block;
-}
-
-/* Стилизация скроллбара */
-.history-list::-webkit-scrollbar {
-    width: 6px;
-}
-
-.history-list::-webkit-scrollbar-track {
-    background: var(--bs-gray-200);
-    border-radius: 3px;
-}
-
-.history-list::-webkit-scrollbar-thumb {
-    background: var(--bs-gray-400);
-    border-radius: 3px;
-}
-
-.history-list::-webkit-scrollbar-thumb:hover {
-    background: var(--bs-gray-500);
-}
-
-[data-bs-theme="dark"] .history-list::-webkit-scrollbar-track {
-    background: var(--bs-gray-700);
-}
-
-[data-bs-theme="dark"] .history-list::-webkit-scrollbar-thumb {
-    background: var(--bs-gray-600);
-}
-
-[data-bs-theme="dark"] .history-list::-webkit-scrollbar-thumb:hover {
-    background: var(--bs-gray-500);
-}
-
 /* Стили для темной темы */
 [data-bs-theme="dark"] body {
     background-color: #212529 !important;
 }
 
-[data-bs-theme="dark"] .calculator {
-    background-color: #343a40 !important;
+[data-bs-theme="dark"] .btn-operator {
+    background-color: var(--bs-primary);
+    color: white;
 }
 
-[data-bs-theme="dark"] .history-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+[data-bs-theme="dark"] .calculator {
+    background-color: var(--bs-dark) !important;
 }
 
 .theme-icon {
@@ -174,11 +97,26 @@
     padding: 0.25rem 0.5rem;
 }
 
-/* Обновленные стили для темной темы */
-[data-bs-theme="dark"] .calculator {
-    background-color: var(--bs-dark) !important;
+/* Стили для кнопок операторов */
+.btn-operator {
+    background-color: var(--bs-primary);
+    color: white;
 }
 
-[data-bs-theme="dark"] .history-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+.btn-operator:hover {
+    background-color: var(--bs-primary-hover);
+    color: white;
+}
+
+/* Активное состояние при нажатии */
+.btn-operator:active,
+.btn-operator.active {
+    background-color: var(--bs-primary-active);
+    color: white;
+}
+
+/* Определяем дополнительные цвета для Bootstrap */
+:root {
+    --bs-primary-hover: #0b5ed7;
+    --bs-primary-active: #0a58ca;
 }

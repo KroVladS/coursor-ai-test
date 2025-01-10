@@ -1,5 +1,18 @@
-let display = document.getElementById('display');
-let historyDiv = document.getElementById('history');
+// Поиск элементов DOM
+const display = document.getElementById('display');
+const historyDiv = document.getElementById('history');
+const btnEquals = document.getElementById('btn-equals');
+const btnClear = document.getElementById('btn-clear');
+const btnAdd = document.getElementById('btn-add');
+const btnSubtract = document.getElementById('btn-subtract');
+const btnMultiply = document.getElementById('btn-multiply');
+const btnDivide = document.getElementById('btn-divide');
+const numberButtons = document.querySelectorAll('.btn-number');
+const operatorButtons = document.querySelectorAll('.btn-operator');
+const clearHistoryBtn = document.getElementById('clear-history');
+const themeSwitcher = document.getElementById('bd-theme');
+
+// Остальные переменные состояния
 let currentInput = '';
 let firstOperand = null;
 let operator = null;
@@ -8,10 +21,27 @@ let lastOperator = null;
 let lastOperand = null;
 
 // Загрузка истории из localStorage
-let calculations = JSON.parse(localStorage.getItem('calcHistory')) || [];
+const storage = {
+    get: (key, defaultValue = []) => {
+        try {
+            return JSON.parse(localStorage.getItem(key)) || defaultValue;
+        } catch {
+            return defaultValue;
+        }
+    },
+    set: (key, value) => {
+        try {
+            localStorage.setItem(key, JSON.stringify(value));
+            return true;
+        } catch {
+            return false;
+        }
+    }
+};
+
+let calculations = storage.get('calcHistory');
 
 // В начало файла добавим обновленные функции для работы с темой
-
 const getStoredTheme = () => localStorage.getItem('calculator-theme');
 const setStoredTheme = theme => localStorage.setItem('calculator-theme', theme);
 
@@ -24,8 +54,7 @@ const getPreferredTheme = () => {
 };
 
 const setTheme = theme => {
-    const themeSwitcher = document.querySelector('#bd-theme');
-    const themeIcon = document.querySelector('.theme-icon-active');
+    const themeIcon = themeSwitcher.querySelector('.theme-icon-active');
     
     if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         document.documentElement.setAttribute('data-bs-theme', 'dark');
@@ -43,13 +72,15 @@ const setTheme = theme => {
     themeIcon.className = `bi ${icons[theme]} theme-icon-active`;
 
     // Обновляем активный элемент в меню
-    document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+    ['theme-light', 'theme-dark', 'theme-auto'].forEach(id => {
+        const element = document.getElementById(id);
+        const checkIcon = element.querySelector('.bi-check2');
         element.classList.remove('active');
-        element.querySelector('.bi-check2').classList.add('d-none');
+        checkIcon.classList.add('d-none');
         
-        if (element.getAttribute('data-bs-theme-value') === theme) {
+        if (id === `theme-${theme}`) {
             element.classList.add('active');
-            element.querySelector('.bi-check2').classList.remove('d-none');
+            checkIcon.classList.remove('d-none');
         }
     });
 };
@@ -59,14 +90,13 @@ const initTheme = () => {
     setTheme(getPreferredTheme());
 
     // Добавляем слушатели для кнопок переключения темы
-    document.querySelectorAll('[data-bs-theme-value]')
-        .forEach(toggle => {
-            toggle.addEventListener('click', () => {
-                const theme = toggle.getAttribute('data-bs-theme-value');
-                setStoredTheme(theme);
-                setTheme(theme);
-            });
+    ['theme-light', 'theme-dark', 'theme-auto'].forEach(id => {
+        document.getElementById(id).addEventListener('click', () => {
+            const theme = id.replace('theme-', '');
+            setStoredTheme(theme);
+            setTheme(theme);
         });
+    });
 
     // Слушатель изменения системной темы
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
@@ -111,28 +141,27 @@ function getButtonByKey(key) {
     switch(key) {
         case 'Enter':
         case '=':
-            button = document.querySelector('.btn-equals');
+            button = btnEquals;
             break;
         case 'Escape':
         case 'Delete':
-            button = document.querySelector('.btn-clear');
+            button = btnClear;
             break;
         case '*':
-            button = document.querySelector('.btn-operator:nth-child(13)');
+            button = btnMultiply;
             break;
         case '/':
-            button = document.querySelector('.btn-operator:last-child');
+            button = btnDivide;
             break;
         case '+':
-            button = document.querySelector('.btn-operator:nth-child(5)');
+            button = btnAdd;
             break;
         case '-':
-            button = document.querySelector('.btn-operator:nth-child(9)');
+            button = btnSubtract;
             break;
         default:
             if (/^[0-9.]$/.test(key)) {
-                const buttons = document.querySelectorAll('.btn-number');
-                for (let btn of buttons) {
+                for (let btn of numberButtons) {
                     if (btn.textContent === key) {
                         button = btn;
                         break;
@@ -187,25 +216,20 @@ function handleKeyPress(event) {
 document.addEventListener('DOMContentLoaded', function() {
     // Инициализируем тему
     initTheme();
-
-    // Добавляем обработчики для переключателей темы
-    document.querySelectorAll('input[name="theme"]').forEach(input => {
-        input.addEventListener('change', (e) => {
-            setTheme(e.target.value);
-        });
-    });
-
+    
     displayHistory();
     updateDisplay('0');
 
-    document.querySelectorAll('.btn-number').forEach(button => {
+    // Обработчики для цифровых кнопок
+    numberButtons.forEach(button => {
         button.addEventListener('click', () => {
             appendNumber(button.textContent);
             addRippleEffect(button);
         });
     });
 
-    document.querySelectorAll('.btn-operator').forEach(button => {
+    // Обработчики для кнопок операторов
+    operatorButtons.forEach(button => {
         button.addEventListener('click', () => {
             const operatorMap = {
                 '×': '*',
@@ -218,22 +242,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.querySelector('.btn-clear').addEventListener('click', () => {
+    // Обработчик для кнопки очистки
+    btnClear.addEventListener('click', () => {
         clearDisplay();
-        addRippleEffect(document.querySelector('.btn-clear'));
+        addRippleEffect(btnClear);
     });
     
-    document.querySelector('.btn-equals').addEventListener('click', () => {
+    // Обработчик для кнопки равно
+    btnEquals.addEventListener('click', () => {
         calculate();
-        addRippleEffect(document.querySelector('.btn-equals'));
+        addRippleEffect(btnEquals);
     });
 
+    // Обработчик клавиатуры
     document.addEventListener('keydown', handleKeyPress);
 
     // Обработчик очистки истории
-    document.getElementById('clear-history').addEventListener('click', function() {
+    clearHistoryBtn.addEventListener('click', function() {
         if (calculations.length > 0) {
-            // Добавим подтверждение очистки
             if (confirm('Очистить историю вычислений?')) {
                 calculations = [];
                 saveHistory();
@@ -245,25 +271,24 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function updateDisplay(value) {
-    display.value = value === '' || value === undefined ? '0' : value;
-    if (parseFloat(value) < 0) {
-        display.classList.add('negative');
-    } else {
-        display.classList.remove('negative');
+    const displayValue = value === '' || value === undefined ? '0' : value;
+    if (display.value !== displayValue) {
+        display.value = displayValue;
+        display.classList.toggle('text-danger', parseFloat(value) < 0);
     }
 }
 
 function appendNumber(number) {
+    
     if (waitingForSecondOperand) {
-        display.value = number;
+        currentInput = number;
         waitingForSecondOperand = false;
     } else {
-        display.value = display.value === '0' && number !== '.' ? 
+        currentInput = currentInput === '0' && number !== '.' ? 
             number : 
-            display.value + number;
+            currentInput + number;
     }
-    currentInput = display.value;
-    updateDisplay(display.value);
+    updateDisplay(currentInput);
 }
 
 function appendOperator(op) {
@@ -277,56 +302,32 @@ function appendOperator(op) {
 }
 
 function calculate() {
-    if (operator === null && lastOperator === null) {
+    if (operator === null && lastOperator === null) return;
+
+    const currentOperator = operator || lastOperator;
+    const secondOperand = operator === null ? lastOperand : parseFloat(currentInput);
+    lastOperand = secondOperand;
+    
+    if (operator === null) {
+        firstOperand = parseFloat(display.value);
+    }
+
+    const expression = `${firstOperand} ${currentOperator} ${secondOperand}`;
+    const result = operators[currentOperator](firstOperand, secondOperand);
+    
+    if (result === 'Ошибка') {
+        display.value = result;
         return;
     }
 
-    let currentOperator = operator || lastOperator;
-    let secondOperand;
-    
-    if (operator === null && lastOperator !== null) {
-        secondOperand = lastOperand;
-        firstOperand = parseFloat(display.value);
-    } else {
-        secondOperand = parseFloat(currentInput);
-        lastOperator = operator;
-        lastOperand = secondOperand;
-    }
-
-    let result = 0;
-    let expression = `${firstOperand} ${currentOperator} ${secondOperand}`;
-
-    switch (currentOperator) {
-        case '+':
-            result = firstOperand + secondOperand;
-            break;
-        case '-':
-            result = firstOperand - secondOperand;
-            break;
-        case '*':
-            result = firstOperand * secondOperand;
-            break;
-        case '/':
-            if (secondOperand === 0) {
-                display.value = 'Ошибка';
-                return;
-            }
-            result = firstOperand / secondOperand;
-            break;
-    }
-
-    calculations.unshift({
-        expression: expression,
-        result: result
-    });
-
-    if (calculations.length > 5) {
-        calculations.pop();
-    }
+    // Добавление в историю
+    calculations.unshift({ expression, result });
+    if (calculations.length > 50) calculations.pop();
 
     saveHistory();
     displayHistory();
     updateDisplay(result);
+    
     firstOperand = result;
     operator = null;
     waitingForSecondOperand = true;
@@ -341,3 +342,26 @@ function clearDisplay() {
     lastOperand = null;
     waitingForSecondOperand = false;
 }
+
+const operators = {
+    '+': (a, b) => a + b,
+    '-': (a, b) => a - b,
+    '*': (a, b) => a * b,
+    '/': (a, b) => b !== 0 ? a / b : 'Ошибка'
+};
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+const debouncedSaveHistory = debounce(() => {
+    storage.set('calcHistory', calculations);
+}, 300);

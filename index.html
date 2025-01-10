@@ -26,24 +26,21 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="bd-theme">
                     <li>
-                        <button type="button" class="dropdown-item d-flex align-items-center"
-                            data-bs-theme-value="light">
+                        <button type="button" id="theme-light" class="dropdown-item d-flex align-items-center">
                             <i class="bi bi-sun-fill me-2 opacity-50"></i>
                             Светлая
                             <i class="bi bi-check2 ms-auto d-none"></i>
                         </button>
                     </li>
                     <li>
-                        <button type="button" class="dropdown-item d-flex align-items-center"
-                            data-bs-theme-value="dark">
+                        <button type="button" id="theme-dark" class="dropdown-item d-flex align-items-center">
                             <i class="bi bi-moon-stars-fill me-2 opacity-50"></i>
                             Темная
                             <i class="bi bi-check2 ms-auto d-none"></i>
                         </button>
                     </li>
                     <li>
-                        <button type="button" class="dropdown-item d-flex align-items-center active"
-                            data-bs-theme-value="auto">
+                        <button type="button" id="theme-auto" class="dropdown-item d-flex align-items-center active">
                             <i class="bi bi-circle-half me-2 opacity-50"></i>
                             Авто
                             <i class="bi bi-check2 ms-auto d-none"></i>
@@ -57,23 +54,23 @@
             <input type="text" id="display" class="form-control form-control-lg border-0 text-end" readonly>
         </div>
         <div class="buttons">
-            <button class="btn btn-danger btn-clear">C</button>
+            <button id="btn-clear" class="btn btn-danger">C</button>
             <button class="btn btn-light btn-number shadow-sm">7</button>
             <button class="btn btn-light btn-number shadow-sm">8</button>
             <button class="btn btn-light btn-number shadow-sm">9</button>
-            <button class="btn btn-secondary btn-operator shadow-sm">+</button>
+            <button id="btn-add" class="btn btn-operator">+</button>
             <button class="btn btn-light btn-number shadow-sm">4</button>
             <button class="btn btn-light btn-number shadow-sm">5</button>
             <button class="btn btn-light btn-number shadow-sm">6</button>
-            <button class="btn btn-secondary btn-operator shadow-sm">-</button>
+            <button id="btn-subtract" class="btn btn-operator">-</button>
             <button class="btn btn-light btn-number shadow-sm">1</button>
             <button class="btn btn-light btn-number shadow-sm">2</button>
             <button class="btn btn-light btn-number shadow-sm">3</button>
-            <button class="btn btn-secondary btn-operator shadow-sm">×</button>
+            <button id="btn-multiply" class="btn btn-operator">×</button>
             <button class="btn btn-light btn-number shadow-sm">0</button>
             <button class="btn btn-light btn-number shadow-sm">.</button>
-            <button class="btn btn-success btn-equals shadow-sm">=</button>
-            <button class="btn btn-secondary btn-operator shadow-sm">÷</button>
+            <button id="btn-equals" class="btn btn-success shadow-sm">=</button>
+            <button id="btn-divide" class="btn btn-operator">÷</button>
         </div>
     </div>
 
