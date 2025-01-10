@@ -1,75 +1,100 @@
+/* Основной контейнер */
 .calculator {
     width: 300px;
     margin: 50px auto;
-    padding: 20px;
-    background-color: #f2f2f2;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.display-container {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+/* Дисплей калькулятора */
 #display {
     width: 100%;
-    height: 40px;
-    margin-bottom: 10px;
-    font-size: 20px;
+    height: 50px;
+    margin-bottom: 0 !important;
+    font-size: 24px;
     text-align: right;
-    padding: 5px;
+    padding: 10px;
     box-sizing: border-box;
+    border: none;
+    border-radius: 0 0 4px 4px;
 }
 
+/* Красный цвет для отрицательных чисел */
+#display.negative {
+    color: red;
+}
+
+/* Сетка кнопок */
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
+    gap: 10px;
 }
 
-button {
+/* Стили для кнопок */
+.btn {
     padding: 15px;
-    font-size: 18px;
-    border: none;
-    background-color: #fff;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    font-weight: 600;
+    font-size: 20px;
 }
 
-/* Стили для цифровых кнопок */
-button:nth-child(n+2):nth-child(-n+13):not(:nth-child(5)):not(:nth-child(9)) {
-    background-color: #f8f9fa;
-    color: #212529;
+/* Цифровые кнопки */
+.btn-number {
+    background-color: white;
 }
 
-/* Стили для операторов */
-button:nth-child(5),
-button:nth-child(9),
-button:nth-child(13),
-button:nth-child(17) {
-    background-color: #ff9500;
+/* Кнопки операторов */
+.btn-operator {
+    background-color: #e0e0e0;
+}
+
+/* Кнопка очистки */
+.btn-clear {
+    background-color: #ff9494;
+}
+
+/* Кнопка равно */
+.btn-equals {
+    background-color: #4CAF50;
     color: white;
 }
 
-/* Стиль для кнопки очистки */
-button:first-child {
-    background-color: #ff3b30;
-    color: white;
-}
-
-/* Стиль для кнопки равно */
-button:nth-child(16) {
-    background-color: #007aff;
-    color: white;
-}
-
-/* Эффекты при наведении */
+/* Эффект при наведении для всех кнопок */
 button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    opacity: 0.8;
 }
 
-/* Эффект при нажатии */
-button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-} 
+/* Стили для истории */
+.history-block {
+    margin: 50px auto;
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.history-list {
+    max-height: 100px;
+    overflow-y: auto;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+}
+
+.history-item {
+    padding: 3px 0;
+    color: #666;
+    cursor: pointer;
+}
+
+.history-item:hover {
+    background-color: #f8f9fa;
+}
