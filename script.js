@@ -7,8 +7,8 @@ const btnAdd = document.getElementById('btn-add');
 const btnSubtract = document.getElementById('btn-subtract');
 const btnMultiply = document.getElementById('btn-multiply');
 const btnDivide = document.getElementById('btn-divide');
-const numberButtons = document.querySelectorAll('.btn-number');
-const operatorButtons = document.querySelectorAll('.btn-operator');
+const numberBtn = document.querySelectorAll('.btn-number');
+const operatorBtn = document.querySelectorAll('.btn-operator');
 const clearHistoryBtn = document.getElementById('clear-history');
 const themeSwitcher = document.getElementById('bd-theme');
 
@@ -161,7 +161,7 @@ function getButtonByKey(key) {
             break;
         default:
             if (/^[0-9.]$/.test(key)) {
-                for (let btn of numberButtons) {
+                for (let btn of numberBtn) {
                     if (btn.textContent === key) {
                         button = btn;
                         break;
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
     updateDisplay('0');
 
     // Обработчики для цифровых кнопок
-    numberButtons.forEach(button => {
+    numberBtn.forEach(button => {
         button.addEventListener('click', () => {
             appendNumber(button.textContent);
             addRippleEffect(button);
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Обработчики для кнопок операторов
-    operatorButtons.forEach(button => {
+    operatorBtn.forEach(button => {
         button.addEventListener('click', () => {
             const operatorMap = {
                 '×': '*',
