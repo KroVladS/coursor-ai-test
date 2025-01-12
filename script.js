@@ -315,7 +315,7 @@ function calculate() {
     const expression = `${firstOperand} ${currentOperator} ${secondOperand}`;
     const result = operators[currentOperator](firstOperand, secondOperand);
     
-    if (result === 'Ошибка') {
+    if (result === 'Ошибка. Деление на ноль невозможно') {
         display.value = result;
         return;
     }
@@ -347,7 +347,7 @@ const operators = {
     '+': (a, b) => a + b,
     '-': (a, b) => a - b,
     '*': (a, b) => a * b,
-    '/': (a, b) => b !== 0 ? a / b : 'Ошибка'
+    '/': (a, b) => b !== 0 ? a / b : 'Ошибка. Деление на ноль невозможно'
 };
 
 function debounce(func, wait) {
